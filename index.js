@@ -1,45 +1,21 @@
-const inquirer = requir('inquirer');
-const Employee = require('./employee');
+const inquirer = require('inquirer');
+const employee = require('./lib/employee');
+const manager = require('./lib/manager');
+const enginner = require('./lib/engineer');
+const intern = require ('./lib/intern');
 
-class Manager extends Employee {
-  constructor(id, officeNumber) {
-    super(id, name, email);
-    this.officeNumber = officeNumber;
+function createTeam() {
 
-  }
+}
 
-  getRole() {
-    return 'Employee';
-  }
-};
+function addManager() {
 
-class Engineer extends Employee {
-  constructor(id, github) {
-    super(id, name, email);
-    this.github = github;
-  }
+}
 
-  getGithub() {
-    return this.github;
-  }
+function addEngineer() {
 
-  getRole() {
-    return 'Engineer';
-  }
+}
 
-};
-
-class Intern extends Employee {
-  constructor(id, school) {
-    super(id, name, email);
-    this.school = school;
-  }
-
-  getSchool() {
-    return this.school;
-  }
-
-  getRole() {
-    return 'Intern';
-  }
-};
+function addIntern() {
+  
+}
