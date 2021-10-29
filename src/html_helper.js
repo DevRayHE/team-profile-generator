@@ -1,8 +1,16 @@
 
-function createCard() {
+function renderTitle() {
 
 }
 
-function createHTML() {
+function renderButton() {
+
+}
+
+function renderCard() {
+
+}
+
+function renderPage() {
 
 }
