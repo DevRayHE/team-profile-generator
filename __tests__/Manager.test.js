@@ -2,7 +2,7 @@ const Manager = require('../lib/manager');
 
 describe('Manager test', () => {
 
-  // Test for all use cases when initializing a new Employee object
+  // Test for all use cases when initializing a new Manager object
 
    // Arrange
    // Resets testParams for each test cases.
@@ -20,8 +20,6 @@ describe('Manager test', () => {
 
       // Act
       const manager = new Manager(testParams.name, testParams.id, testParams.email, testParams.officeNumber);
-
-      console.log(manager);
 
       // Assert
       expect(manager).toEqual({ 
@@ -65,36 +63,33 @@ describe('Manager test', () => {
       // Create new objects to test with
       const testGetName = new Manager(testParams.name, testParams.id, testParams.email, testParams.officeNumber);
 
-      console.log(testGetName.getName());
       expect(testGetName.getName()).toEqual(testParams.name);
     });
   });
 
   // Test getID method
   describe('Testing Method getId', () => {
-    it('should return the name', () => {
+    it('should return the ID', () => {
       // Create new objects to test with
       const testGetId = new Manager(testParams.name, testParams.id, testParams.email, testParams.officeNumber);
 
-      console.log(testGetId.getId());
       expect(testGetId.getId()).toEqual(testParams.id);
     });
   });
 
   // Test getEmail method
   describe('Testing Method getEmail', () => {
-    it('should return the name', () => {
+    it('should return the Email address', () => {
       // Create new objects to test with
       const testGetEmail = new Manager(testParams.name, testParams.id, testParams.email, testParams.officeNumber);
 
-      console.log(testGetEmail.getEmail());
       expect(testGetEmail.getEmail()).toEqual(testParams.email);
     });
   });
 
   // Test getRole method
   describe('Testing Method getRole', () => {
-    it('should return the name', () => {
+    it('should return the role', () => {
       // Create new objects to test with
       const testGetRole = new Manager(testParams.name, testParams.id, testParams.email, testParams.officeNumber);
 
