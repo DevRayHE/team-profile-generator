@@ -7,18 +7,17 @@ describe('Employee test', () => {
 
    // Arrange
   beforeEach(() => {
-    return testParams = {testName: 'David', 
-      testId: 1001,
-      testEmail: 'david@corpemail.com'
+    return testParams = {name: 'David', 
+      id: 1001,
+      email: 'david@corpemail.com'
     };
   })
   
-
   describe('Initialization', ()=> {
     it('should create a class with name, id, email', () => {
 
       // Act
-      const employee = new Employee(testParams.testName, testParams.testId, testParams.testEmail);
+      const employee = new Employee(testParams.name, testParams.id, testParams.email);
 
       console.log(employee);
 
@@ -27,32 +26,39 @@ describe('Employee test', () => {
     });
 
     // Exception test
-    // it('should throw an error if not provided a valid parameter', () => {
-    //   // Arrange
-    //   const cbEmployeeNoName = new Employee(testParams.testId, testParams.testEmail);
-    //   const cbEmployeeNoId = new Employee(testParams.testName, testParams.testEmail);
-    //   const cbEmployeeNoEmail = new Employee(testParams.testName, testParams.testId);
+    it('should throw an error if not provided a valid parameter', () => {
+      // Arrange
+      // Initialize class without name, id or email
+      const cbEmployeeNoName = () => new Employee(testParams.id, testParams.email);
+      const cbEmployeeNoId = () => new Employee(testParams.name, testParams.email);
+      const cbEmployeeNoEmail = () => new Employee(testParams.name, testParams.id);
+      const cbEmployeeNoNameandId = () => new Employee(testParams.email);
+      const cbEmployeeNoNameandEmail = () => new Employee(testParams.id);
+      const cbEmployeeNoIdandEmail = () => new Employee(testParams.name);
+      const cbEmployeeNoParams = () => new Employee();
 
-    //   // Act
-    //   const errNoName = new Error('Expected first parameter "name" is missing');
-    //   const errNoId = new Error('Expected second parameter "id" is missing');
-    //   const errNoEmail = new Error('Expected third parameter "email" is missing');
+      // Act
+      const error = new Error('One or more Parameters are missing!');
 
-    //   // Assert
-    //   expect(cbEmployeeNoName).toThrowError(errNoName);
-    //   expect(cbEmployeeNoId).toThrowError(errNoId);
-    //   expect(cbEmployeeNoEmail).toThrowError(errNoEmail);
-    // });
+      // Assert
+      expect(cbEmployeeNoName).toThrowError(error);
+      expect(cbEmployeeNoId).toThrowError(error);
+      expect(cbEmployeeNoEmail).toThrowError(error);
+      expect(cbEmployeeNoNameandId).toThrowError(error);
+      expect(cbEmployeeNoNameandEmail).toThrowError(error);
+      expect(cbEmployeeNoIdandEmail).toThrowError(error);
+      expect(cbEmployeeNoParams).toThrowError(error);
+    });
   });
 
   // Test getName method
   describe('Testing Method getName', () => {
     it('should return the name', () => {
       // Create new objects to test with
-      const testGetName = new Employee(testParams.testName, testParams.testId, testParams.testEmail);
+      const testGetName = new Employee(testParams.name, testParams.id, testParams.email);
 
       console.log(testGetName.getName());
-      expect(testGetName.getName()).toEqual(testParams.testName);
+      expect(testGetName.getName()).toEqual(testParams.name);
     });
   });
 
@@ -60,10 +66,10 @@ describe('Employee test', () => {
   describe('Testing Method getId', () => {
     it('should return the name', () => {
       // Create new objects to test with
-      const testGetId = new Employee(testParams.testName, testParams.testId, testParams.testEmail);
+      const testGetId = new Employee(testParams.name, testParams.id, testParams.email);
 
       console.log(testGetId.getId());
-      expect(testGetId.getId()).toEqual(testParams.testId);
+      expect(testGetId.getId()).toEqual(testParams.id);
     });
   });
 
@@ -71,10 +77,10 @@ describe('Employee test', () => {
   describe('Testing Method getEmail', () => {
     it('should return the name', () => {
       // Create new objects to test with
-      const testGetEmail = new Employee(testParams.testName, testParams.testId, testParams.testEmail);
+      const testGetEmail = new Employee(testParams.name, testParams.id, testParams.email);
 
       console.log(testGetEmail.getEmail());
-      expect(testGetEmail.getEmail()).toEqual(testParams.testEmail);
+      expect(testGetEmail.getEmail()).toEqual(testParams.email);
     });
   });
 
@@ -82,7 +88,7 @@ describe('Employee test', () => {
   describe('Testing Method getRole', () => {
     it('should return the name', () => {
       // Create new objects to test with
-      const testGetRole = new Employee(testParams.testName, testParams.testId, testParams.testEmail);
+      const testGetRole = new Employee(testParams.name, testParams.id, testParams.email);
 
       expect(testGetRole.getRole()).toEqual('Employee');
     });
