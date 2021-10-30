@@ -1,4 +1,3 @@
-const { beforeEach } = require('@jest/globals');
 const Employee = require('../lib/employee');
 
 describe('Employee test', () => {
@@ -6,12 +5,14 @@ describe('Employee test', () => {
   // Test for all use cases when initializing a new Employee object
 
    // Arrange
+   // Resets testParams for each test cases.
   beforeEach(() => {
-    return testParams = {name: 'David', 
+    return testParams = {
+      name: 'David', 
       id: 1001,
       email: 'david@corpemail.com'
     };
-  })
+  });
   
   describe('Initialization', ()=> {
     it('should create a class with name, id, email', () => {
@@ -26,7 +27,7 @@ describe('Employee test', () => {
     });
 
     // Exception test
-    it('should throw an error if not provided a valid parameter', () => {
+    it('should throw an error if valid parameters are not provided', () => {
       // Arrange
       // Initialize class without name, id or email
       const cbEmployeeNoName = () => new Employee(testParams.id, testParams.email);
