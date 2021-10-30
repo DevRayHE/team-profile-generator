@@ -1,153 +1,123 @@
 const inquirer = require('inquirer');
-const employee = require('./lib/employee');
+const fs = require('fs');
+const renderFunction = require('./src/html_helper');
+// import function template - questions template
+const functionTemplate = require('./src/function_helper');
 const manager = require('./lib/manager');
-const enginner = require('./lib/engineer');
+const engineer = require('./lib/engineer');
 const intern = require ('./lib/intern');
+
+let teamData = [];
 
 // Function to initialize app
 function init() {
 
+  // Clear the content and start with an empty team_data.json data file
+  // clearFileContent();
+
+  // start inquirer prompt to create team
   createTeam();
-  
 }
 
 // Function to create team
-function createTeam() {
+const createTeam = () => {
 
   inquirer
-    .prompt([
-      {
-        type: 'confirm',
-        message: 'Welcome to Team Profile Generator, simply press Enter to start.',
-        name: 'start',
-      },
-      {
-        type: 'input',
-        message: 'The Team\'s name:',
-        name: 'teamTitle',
-      }
-    ])
-    .then((data) => {
-      console.log(data);
-      addManager();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  .prompt([
+    {
+      type: 'confirm',
+      message: 'Welcome to Team Profile Generator, simply press Enter to start.',
+      name: 'start',
+    },
+    {
+      type: 'input',
+      message: 'The Team\'s name:',
+      name: 'teamTitle',
+    }
+  ])
+  .then((data) => {
+    console.log(data);
+    addManager();
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
-}
+};
 
 // Function to prompt for manger detail
-function addManager() {
-
-  let subject = 'Team Manager\'s';
+const addManager = () => {
 
   inquirer
-    .prompt([
-      {
-        type: 'input',
-        message: `${subject} name:`,
-        name: 'managerName',
-      },
-      {
-        type: 'input',
-        message: `${subject} employee ID:`,
-        name: 'managerID',
-      },
-      {
-        type: 'input',
-        message: `${subject} email address`,
-        name: 'managerEmail',
-      },
-      {
-        type: 'input',
-        message: `${subject} office number`,
-        name: 'managerNumber',
-      },
-    ])
+    .prompt(functionTemplate.questions('Manager'))
     .then((data) => {
       console.log(data);
-      selection();
+      if ((!data.name) || (!data.id) || (!data.email) || (!data.officeNumber)) {
+        console.error(`Input error, please try again!`);
+        addManager();
+      } else {
+        const {name, id, email, officeNumber} = data;
+        const newManager = new manager(name, id, email, officeNumber); 
+        console.log(newManager);
+        console.log(newManager.getRole());
+        teamData.push(newManager);
+        console.log("team data: " + teamData[0].name);
+        selection();
+      }
     })
     .catch((error) => {
       console.error(error);
     });
-}
+};
 
 // Function to prompt for engineer detail
-function addEngineer() {
-  let subject = 'Engineer\'s';
+const addEngineer = () => {
 
   inquirer
-    .prompt([
-      {
-        type: 'input',
-        message: `${subject} name:`,
-        name: 'engineerName',
-      },
-      {
-        type: 'input',
-        message: `${subject} employee ID:`,
-        name: 'engineerID',
-      },
-      {
-        type: 'input',
-        message: `${subject} email address`,
-        name: 'engineerEmail',
-      },
-      {
-        type: 'input',
-        message: `${subject} Github username`,
-        name: 'engineerGithub',
-      },
-    ])
+    .prompt(functionTemplate.questions('Engineer'))
     .then((data) => {
       console.log(data);
-      selection();
+      if ((!data.name) || (!data.id) || (!data.email) || (!data.github)) {
+        console.error(`Input error, please try again!`);
+        addEngineer();
+      } else {
+        const {name, id, email, github} = data;
+        const newEngineer = new engineer(name, id, email, github); 
+        console.log(newEngineer.getRole());
+        teamData.push(newEngineer);
+        selection();
+      }
     })
     .catch((error) => {
       console.error(error);
     });
-}
+};
 
 // Function to prompt for intern detail
-function addIntern() {
-  let subject = 'Intern\'s';
+const addIntern = () => {
 
   inquirer
-    .prompt([
-      {
-        type: 'input',
-        message: `${subject} name:`,
-        name: 'internName',
-      },
-      {
-        type: 'input',
-        message: `${subject} employee ID:`,
-        name: 'internID',
-      },
-      {
-        type: 'input',
-        message: `${subject} email address`,
-        name: 'internEmail',
-      },
-      {
-        type: 'input',
-        message: `${subject} School`,
-        name: 'internSchool',
-      },
-    ])
+    .prompt(functionTemplate.questions('Intern'))
     .then((data) => {
       console.log(data);
-      selection();
+      if ((!data.name) || (!data.id) || (!data.email) || (!data.school)) {
+        console.error(`Input error, please try again!`);
+        addIntern();
+      } else {
+        const {name, id, email, school} = data;
+        const newIntern = new intern(name, id, email, school); 
+        console.log(newIntern.getRole());
+        teamData.push(newIntern);
+        selection();
+      }
     })
     .catch((error) => {
       console.error(error);
     });
-}
+};
 
 // Function to select add enginner, add intern or finish building the team
-function selection() {
+const selection = () => {
   inquirer
     .prompt([
       {
@@ -175,13 +145,26 @@ function selection() {
 
         case 'Finish building my team':
           console.log(`${selection} chosen!`)
+          const contentToWrite = renderFunction.renderPage();
+
+          console.log(teamData.map( member => member.getRole()));
+          // Create Html file
+          fs.writeFile(
+            './dist/index.html',
+            contentToWrite,
+            (writeErr) => 
+              writeErr
+                ? console.error(writeErr)
+                : console.info('Successfully cleared data file!')
+          )
+
           break;
       }
     })
     .catch((error) => {
       console.error(error);
     });
-}
+};
 
 // Function call to initialize app
 init();
