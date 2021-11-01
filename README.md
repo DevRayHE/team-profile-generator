@@ -47,7 +47,7 @@
 
 ### Here is a video to demonstrate 
 
-![Usage sample video.](./dist/image/demovideo.gif)
+![Usage sample video.](./dist/image/demovideo.mp4)
 
  --- 
 

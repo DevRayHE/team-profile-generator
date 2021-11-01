@@ -23,13 +23,8 @@ const createTeam = () => {
   inquirer
   .prompt([
     {
-      type: 'confirm',
-      message: 'Welcome to Team Profile Generator, simply press Enter to start.',
-      name: 'start',
-    },
-    {
       type: 'input',
-      message: 'The Team\'s name:',
+      message: 'Welcome to Team Profile Generator.\n Please enter the Team\'s name:',
       name: 'teamTitle',
     }
   ])
