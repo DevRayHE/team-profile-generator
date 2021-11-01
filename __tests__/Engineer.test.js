@@ -29,32 +29,6 @@ describe('Engineer test', () => {
         github: testParams.github});
     });
 
-    // Exception test
-    it('should throw an error if valid parameters are not provided', () => {
-      // Arrange
-      // Initialize class without name, id or email
-      const cbNoName = () => new Engineer(testParams.id, testParams.email, testParams.github);
-      const cbNoId = () => new Engineer(testParams.name, testParams.email, testParams.github);
-      const cbNoEmail = () => new Engineer(testParams.name, testParams.id, testParams.github);
-      const cbNoNameandId = () => new Engineer(testParams.email,testParams.github);
-      const cbNoNameandEmail = () => new Engineer(testParams.id, testParams.github);
-      const cbNoIdandEmail = () => new Engineer(testParams.name, testParams.github);
-      const cbNoParams = () => new Engineer();
-      const cbNoGithub = () => new Engineer(testParams.name, testParams.id, testParams.email);
-
-      // Act
-      const error = new Error('One or more Parameters are missing!');
-
-      // Assert
-      expect(cbNoName).toThrowError(error);
-      expect(cbNoId).toThrowError(error);
-      expect(cbNoEmail).toThrowError(error);
-      expect(cbNoNameandId).toThrowError(error);
-      expect(cbNoNameandEmail).toThrowError(error);
-      expect(cbNoIdandEmail).toThrowError(error);
-      expect(cbNoParams).toThrowError(error);
-      expect(cbNoGithub).toThrowError(error);
-    });
   });
 
   // Test getName method

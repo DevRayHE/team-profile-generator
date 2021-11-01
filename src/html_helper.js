@@ -10,7 +10,6 @@ function generateCards(teamData) {
   }
 
   return cards;
-
 }
 
 function generateCard(teamMemberData) {
@@ -23,7 +22,7 @@ function generateCard(teamMemberData) {
       break;
 
       case 'Engineer':
-        return `<li class="list-group-item"><a href="${teamMemberData.github}"><p>Github: ${teamMemberData.github}></p></a></li>`;
+        return `<li class="list-group-item"><a href="${teamMemberData.github}"><p>Github: ${teamMemberData.github}</p></a></li>`;
       break;
         
       case 'Intern':
@@ -51,7 +50,6 @@ function generateCard(teamMemberData) {
   }
 
   const card = `
-  
             <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
               <div class="card-header ">
                 <p><h2>${teamMemberData.name}</h2></p>
@@ -99,7 +97,7 @@ function renderPage(teamData, teamTitle) {
     <link rel="stylesheet" type="text/css" href="./dist/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./dist/css/style.css">
   
-    <title>${teamTitle}</title>
+    <title>${teamTitle} profile</title>
   </head>
   
   <body>

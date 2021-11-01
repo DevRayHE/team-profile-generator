@@ -23,31 +23,6 @@ describe('Employee test', () => {
       // Assert
       expect(employee).toEqual({ name: 'David', id: 1001, email: 'david@corpemail.com'});
     });
-
-    // Exception test
-    it('should throw an error if valid parameters are not provided', () => {
-      // Arrange
-      // Initialize class without name, id or email
-      const cbEmployeeNoName = () => new Employee(testParams.id, testParams.email);
-      const cbEmployeeNoId = () => new Employee(testParams.name, testParams.email);
-      const cbEmployeeNoEmail = () => new Employee(testParams.name, testParams.id);
-      const cbEmployeeNoNameandId = () => new Employee(testParams.email);
-      const cbEmployeeNoNameandEmail = () => new Employee(testParams.id);
-      const cbEmployeeNoIdandEmail = () => new Employee(testParams.name);
-      const cbEmployeeNoParams = () => new Employee();
-
-      // Act
-      const error = new Error('One or more Parameters are missing!');
-
-      // Assert
-      expect(cbEmployeeNoName).toThrowError(error);
-      expect(cbEmployeeNoId).toThrowError(error);
-      expect(cbEmployeeNoEmail).toThrowError(error);
-      expect(cbEmployeeNoNameandId).toThrowError(error);
-      expect(cbEmployeeNoNameandEmail).toThrowError(error);
-      expect(cbEmployeeNoIdandEmail).toThrowError(error);
-      expect(cbEmployeeNoParams).toThrowError(error);
-    });
   });
 
   // Test getName method

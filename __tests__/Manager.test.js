@@ -29,32 +29,6 @@ describe('Manager test', () => {
         officeNumber: testParams.officeNumber});
     });
 
-    // Exception test
-    it('should throw an error if valid parameters are not provided', () => {
-      // Arrange
-      // Initialize class without name, id or email
-      const cbNoName = () => new Manager(testParams.id, testParams.email, testParams.officeNumber);
-      const cbNoId = () => new Manager(testParams.name, testParams.email, testParams.officeNumber);
-      const cbNoEmail = () => new Manager(testParams.name, testParams.id, testParams.officeNumber);
-      const cbNoNameandId = () => new Manager(testParams.email,testParams.officeNumber);
-      const cbNoNameandEmail = () => new Manager(testParams.id, testParams.officeNumber);
-      const cbNoIdandEmail = () => new Manager(testParams.name, testParams.officeNumber);
-      const cbNoParams = () => new Manager();
-      const cbNoOfficeNum = () => new Manager(testParams.name, testParams.id, testParams.email);
-
-      // Act
-      const error = new Error('One or more Parameters are missing!');
-
-      // Assert
-      expect(cbNoName).toThrowError(error);
-      expect(cbNoId).toThrowError(error);
-      expect(cbNoEmail).toThrowError(error);
-      expect(cbNoNameandId).toThrowError(error);
-      expect(cbNoNameandEmail).toThrowError(error);
-      expect(cbNoIdandEmail).toThrowError(error);
-      expect(cbNoParams).toThrowError(error);
-      expect(cbNoOfficeNum).toThrowError(error);
-    });
   });
 
   // Test getName method

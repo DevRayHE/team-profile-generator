@@ -29,32 +29,6 @@ describe('Intern test', () => {
         school: testParams.school});
     });
 
-    // Exception test
-    it('should throw an error if valid parameters are not provided', () => {
-      // Arrange
-      // Initialize class without name, id or email
-      const cbNoName = () => new Intern(testParams.id, testParams.email, testParams.school);
-      const cbNoId = () => new Intern(testParams.name, testParams.email, testParams.school);
-      const cbNoEmail = () => new Intern(testParams.name, testParams.id, testParams.school);
-      const cbNoNameandId = () => new Intern(testParams.email,testParams.school);
-      const cbNoNameandEmail = () => new Intern(testParams.id, testParams.school);
-      const cbNoIdandEmail = () => new Intern(testParams.name, testParams.school);
-      const cbNoParams = () => new Intern();
-      const cbNoSchool = () => new Intern(testParams.name, testParams.id, testParams.email);
-
-      // Act
-      const error = new Error('One or more Parameters are missing!');
-
-      // Assert
-      expect(cbNoName).toThrowError(error);
-      expect(cbNoId).toThrowError(error);
-      expect(cbNoEmail).toThrowError(error);
-      expect(cbNoNameandId).toThrowError(error);
-      expect(cbNoNameandEmail).toThrowError(error);
-      expect(cbNoIdandEmail).toThrowError(error);
-      expect(cbNoParams).toThrowError(error);
-      expect(cbNoSchool).toThrowError(error);
-    });
   });
 
   // Test getName method

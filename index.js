@@ -1,8 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const renderPage = require('./src/html_helper');
-// import function template - questions template
-const functionTemplate = require('./src/function_helper');
+const questionTemplate = require('./src/function_helper');
 const manager = require('./lib/manager');
 const engineer = require('./lib/engineer');
 const intern = require ('./lib/intern');
@@ -37,7 +36,6 @@ const createTeam = () => {
     }
   ])
   .then((data) => {
-    console.log(data);
     teamTitle = data.teamTitle;
     addManager();
   })
@@ -51,7 +49,7 @@ const createTeam = () => {
 const addManager = () => {
 
   inquirer
-    .prompt(functionTemplate.questions('Manager'))
+    .prompt(questionTemplate.questions('Manager'))
     .then((data) => {
       console.log(data);
       if ((!data.name) || (!data.id) || (!data.email) || (!data.officeNumber)) {
@@ -76,16 +74,14 @@ const addManager = () => {
 const addEngineer = () => {
 
   inquirer
-    .prompt(functionTemplate.questions('Engineer'))
+    .prompt(questionTemplate.questions('Engineer'))
     .then((data) => {
-      console.log(data);
       if ((!data.name) || (!data.id) || (!data.email) || (!data.github)) {
         console.error(`Input error, please try again!`);
         addEngineer();
       } else {
         const {name, id, email, github} = data;
         const newEngineer = new engineer(name, id, email, github); 
-        console.log(newEngineer.getRole());
         teamData.push(newEngineer);
         selection();
       }
@@ -99,16 +95,14 @@ const addEngineer = () => {
 const addIntern = () => {
 
   inquirer
-    .prompt(functionTemplate.questions('Intern'))
+    .prompt(questionTemplate.questions('Intern'))
     .then((data) => {
-      console.log(data);
       if ((!data.name) || (!data.id) || (!data.email) || (!data.school)) {
         console.error(`Input error, please try again!`);
         addIntern();
       } else {
         const {name, id, email, school} = data;
         const newIntern = new intern(name, id, email, school); 
-        console.log(newIntern.getRole());
         teamData.push(newIntern);
         selection();
       }
@@ -130,28 +124,24 @@ const selection = () => {
       }
     ])
     .then((data) => {
-      console.log(data);
+
       const { selection } = data;
 
       switch (selection) {
 
         case 'Add an engineer':
-          console.log(`${selection} chosen!`)
           addEngineer();
           break;
 
         case 'Add an intern':
-          console.log(`${selection} chosen!`)
           addIntern();
           break;
 
         case 'Finish building my team':
           console.log(`${selection} chosen!`)
           console.log(teamData);
-          // renderPage.renderPage(teamData, teamTitle);
+          // Call the renderPage method from html_helper.js to generate html page code and assign to variable 
           const contentToWrite = renderPage.renderPage(teamData, teamTitle);
-
-          // console.log(teamData.map( member => member.getRole()));
 
           // Create Html file
           fs.writeFile(
@@ -162,7 +152,6 @@ const selection = () => {
                 ? console.error(writeErr)
                 : console.info('Successfully created the team profile page!')
           )
-
           break;
       }
     })
