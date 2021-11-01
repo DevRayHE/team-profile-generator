@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const renderFunction = require('./src/html_helper');
+const renderPage = require('./src/html_helper');
 // import function template - questions template
 const functionTemplate = require('./src/function_helper');
 const manager = require('./lib/manager');
@@ -8,6 +8,7 @@ const engineer = require('./lib/engineer');
 const intern = require ('./lib/intern');
 
 let teamData = [];
+let teamTitle = '';
 
 // Function to initialize app
 function init() {
@@ -37,6 +38,7 @@ const createTeam = () => {
   ])
   .then((data) => {
     console.log(data);
+    teamTitle = data.teamTitle;
     addManager();
   })
   .catch((error) => {
@@ -145,9 +147,12 @@ const selection = () => {
 
         case 'Finish building my team':
           console.log(`${selection} chosen!`)
-          const contentToWrite = renderFunction.renderPage();
+          console.log(teamData);
+          // renderPage.renderPage(teamData, teamTitle);
+          const contentToWrite = renderPage.renderPage(teamData, teamTitle);
 
-          console.log(teamData.map( member => member.getRole()));
+          // console.log(teamData.map( member => member.getRole()));
+
           // Create Html file
           fs.writeFile(
             './dist/index.html',
@@ -155,7 +160,7 @@ const selection = () => {
             (writeErr) => 
               writeErr
                 ? console.error(writeErr)
-                : console.info('Successfully cleared data file!')
+                : console.info('Successfully created the team profile page!')
           )
 
           break;

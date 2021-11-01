@@ -1,18 +1,80 @@
 const dedent = require('dedent');
 
-function renderTitle() {
+function generateCards(teamData) {
+
+  let cards = ``;
+
+  for (i=0; i<teamData.length; i++) {
+    const card = generateCard(teamData[i]);
+    cards += card;
+  }
+
+  return cards;
 
 }
 
-function renderButton() {
+function generateCard(teamMemberData) {
+  // Generates the third list item based on employee type
+  const generateLi = () => {
 
+    switch(teamMemberData.getRole()) {
+      case 'Manager':
+        return `<li class="list-group-item"><p>Office number: ${teamMemberData.officeNumber}</p></li>`;
+      break;
+
+      case 'Engineer':
+        return `<li class="list-group-item"><a href="${teamMemberData.github}"><p>Github: ${teamMemberData.github}></p></a></li>`;
+      break;
+        
+      case 'Intern':
+        return `<li class="list-group-item"><p>School: ${teamMemberData.school}</p></li>`;
+      break;
+    }
+  }
+
+  // Generate emoji icon based on role
+  const generateEmoji = () => {
+
+    switch(teamMemberData.getRole()) {
+      case 'Manager':
+        return '&#9749;';
+      break;
+
+      case 'Engineer':
+        return '&#127891;';
+      break;
+        
+      case 'Intern':
+        return '&#128374;';
+      break;
+    }
+  }
+
+  const card = `
+  
+            <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
+              <div class="card-header ">
+                <p><h2>${teamMemberData.name}</h2></p>
+                <h2><span style='font-size:50px;'>${generateEmoji()}</span>${teamMemberData.getRole()}</h2>
+              </div>
+              <div class="card-body bg-light">
+                <ul class="list-group list-group-flush bg-light">
+                  <li class="list-group-item"><p>ID: ${teamMemberData.id}</p></li>
+                  <li class="list-group-item"><a href="mailto:${teamMemberData.email}"><p>Email: ${teamMemberData.email}</p></a></li>
+                  ${generateLi()}
+                </ul>
+              </div>
+            </div>
+  `
+
+  return card;
 }
 
-function renderCard() {
+function renderPage(teamData, teamTitle) {
 
-}
+  // generate Cards with team data and store in cards variable
+  const cards = generateCards(teamData);
 
-function renderPage() {
   const renderContent = `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -37,14 +99,14 @@ function renderPage() {
     <link rel="stylesheet" type="text/css" href="./dist/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="./dist/css/style.css">
   
-    <title>My Team</title>
+    <title>${teamTitle}</title>
   </head>
   
   <body>
   
     <header>
       <div class="jumbotron bg-danger text-center">
-        <h1 class="display-4  text-light">My Team</h1>
+        <h1 class="display-4  text-light">${teamTitle}</h1>
         <hr class="my-4">
       </div>
     </header>
@@ -55,61 +117,7 @@ function renderPage() {
       <div class="card-group">
         <div class="row" style="justify-content: space-evenly">
   
-          <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
-            <div class="card-header ">
-              <p><h2>Jared</h2></p>
-              <h2><span style='font-size:50px;'>&#9749;</span>Manager</h2>
-            </div>
-            <div class="card-body bg-light">
-              <ul class="list-group list-group-flush bg-light">
-                <li class="list-group-item"><p>ID: 1</p></li>
-                <li class="list-group-item"><p>Email: <a href="mailto:jared@fakemail.com"></a></p></li>
-                <li class="list-group-item"><p>Office number: 1</p></li>
-              </ul>
-            </div>
-          </div>
-  
-          <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
-            <div class="card-header ">
-              <p><h2>Jared</h2></p>
-              <h2><span style='font-size:50px;'>&#9749;</span>Manager</h2>
-            </div>
-            <div class="card-body bg-light">
-              <ul class="list-group list-group-flush bg-light">
-                <li class="list-group-item"><p>ID: 1</p></li>
-                <li class="list-group-item"><p>Email: <a href="mailto:jared@fakemail.com"></a></p></li>
-                <li class="list-group-item"><p>Office number: 1</p></li>
-              </ul>
-            </div>
-          </div>
-  
-          <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
-            <div class="card-header ">
-              <p><h2>Jared</h2></p>
-              <h2><span style='font-size:50px;'>&#9749;</span>Manager</h2>
-            </div>
-            <div class="card-body bg-light">
-              <ul class="list-group list-group-flush bg-light">
-                <li class="list-group-item"><p>ID: 1</p></li>
-                <li class="list-group-item"><p>Email: <a href="mailto:jared@fakemail.com"></a></p></li>
-                <li class="list-group-item"><p>Office number: 1</p></li>
-              </ul>
-            </div>
-          </div>
-  
-          <div class="card col-12 col-md-5 col-lg-3 p-2 m-2 bg-primary">
-            <div class="card-header ">
-              <p><h2>Jared</h2></p>
-              <h2><span style='font-size:50px;'>&#9749;</span>Manager</h2>
-            </div>
-            <div class="card-body bg-light">
-              <ul class="list-group list-group-flush bg-light">
-                <li class="list-group-item"><p>ID: 1</p></li>
-                <li class="list-group-item"><p>Email: <a href="mailto:jared@fakemail.com"></a></p></li>
-                <li class="list-group-item"><p>Office number: 1</p></li>
-              </ul>
-            </div>
-          </div>
+          ${cards}
   
         </div>
       </div>
