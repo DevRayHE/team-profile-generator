@@ -1,0 +1,28 @@
+/* Global variables */
+:root {
+  --red-bg: rgb(221, 0, 0);
+  --blue-bg: rgb(28, 69, 255);
+  --default-font-family: 'Manrope', -apple-system, sans-serif;
+}
+
+html {
+  height:100%;
+  background-repeat: no-repeat;
+  font-family: 'Manrope', -apple-system, sans-serif;
+} 
+
+body {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  font-family: var(--default-font-family);
+  display: inline-block;
+  text-align: justify;
+}
+
+
+
