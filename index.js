@@ -51,15 +51,12 @@ const addManager = () => {
     .then((data) => {
       console.log(data);
       if ((!data.name) || (!data.id) || (!data.email) || (!data.officeNumber)) {
-        console.error(`Input error, please try again!`);
+        console.error(`One or more fields are empty, please try again!`);
         addManager();
       } else {
         const {name, id, email, officeNumber} = data;
         const newManager = new manager(name, id, email, officeNumber); 
-        console.log(newManager);
-        console.log(newManager.getRole());
         teamData.push(newManager);
-        console.log("team data: " + teamData[0].name);
         selection();
       }
     })
@@ -75,7 +72,7 @@ const addEngineer = () => {
     .prompt(questionTemplate.questions('Engineer'))
     .then((data) => {
       if ((!data.name) || (!data.id) || (!data.email) || (!data.github)) {
-        console.error(`Input error, please try again!`);
+        console.error(`One or more fields are empty, please try again!`);
         addEngineer();
       } else {
         const {name, id, email, github} = data;
@@ -96,7 +93,7 @@ const addIntern = () => {
     .prompt(questionTemplate.questions('Intern'))
     .then((data) => {
       if ((!data.name) || (!data.id) || (!data.email) || (!data.school)) {
-        console.error(`Input error, please try again!`);
+        console.error(`One or more fields are empty, please try again!`);
         addIntern();
       } else {
         const {name, id, email, school} = data;
@@ -136,8 +133,6 @@ const selection = () => {
           break;
 
         case 'Finish building my team':
-          console.log(`${selection} chosen!`)
-          console.log(teamData);
           // Call the renderPage method from html_helper.js to generate html page code and assign to variable 
           const contentToWrite = renderPage.renderPage(teamData, teamTitle);
 
