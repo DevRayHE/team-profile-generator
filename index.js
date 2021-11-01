@@ -1,3 +1,4 @@
+// Import dependencies
 const inquirer = require('inquirer');
 const fs = require('fs');
 const renderPage = require('./src/html_helper');
@@ -11,9 +12,6 @@ let teamTitle = '';
 
 // Function to initialize app
 function init() {
-
-  // Clear the content and start with an empty team_data.json data file
-  // clearFileContent();
 
   // start inquirer prompt to create team
   createTeam();

@@ -1,14 +1,17 @@
+// Dedent to keep the code indentation not affected by template literal
 const dedent = require('dedent');
 
 function generateCards(teamData) {
 
   let cards = ``;
 
+  // Generate each card from each team member data and concatenate to cards
   for (i=0; i<teamData.length; i++) {
     const card = generateCard(teamData[i]);
     cards += card;
   }
 
+  // return all the cards
   return cards;
 }
 
@@ -22,7 +25,7 @@ function generateCard(teamMemberData) {
       break;
 
       case 'Engineer':
-        return `<li class="list-group-item"><a href="${teamMemberData.github}"><p>Github: ${teamMemberData.github}</p></a></li>`;
+        return `<li class="list-group-item"><a href="https://github.com/${teamMemberData.github}"><p>Github: ${teamMemberData.github}</p></a></li>`;
       break;
         
       case 'Intern':
@@ -65,6 +68,7 @@ function generateCard(teamMemberData) {
             </div>
   `
 
+  // return each generated card
   return card;
 }
 
@@ -73,7 +77,8 @@ function renderPage(teamData, teamTitle) {
   // generate Cards with team data and store in cards variable
   const cards = generateCards(teamData);
 
-  const renderContent = `<!DOCTYPE html>
+  // Assign all the html page contents to variable
+  const renderContent = dedent(`<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -129,9 +134,8 @@ function renderPage(teamData, teamTitle) {
   crossorigin="anonymous">
   </script>
   
-  <script src="./script.js"></script>
   </body>
-  </html>`
+  </html>`);
 
   return renderContent;
 }
