@@ -25,6 +25,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Files structure](#file-structure)
 - [Contribute](#contribute)
 - [Credits](#credits)
 - [Tests](#tests)
@@ -50,6 +51,37 @@
 ![Usage sample video.](./dist/image/demovideo.gif)
 
  --- 
+
+## File structure
+
+```md
+__tests__/			// jest tests
+  Employee.test.js
+  Engineer.test.js
+  Intern.test.js
+  Manager.test.js
+
+dist/               // rendered output (HTML) and CSS style sheet
+  css/normalize.css
+  css/style.css
+  image/demovideo.gif
+  image/demovideo.mp4
+  index.html
+
+lib/				// classes
+  employee.js
+  engineer.js
+  intern.js
+  manager.js
+
+src/				// template helper code
+  function_helper.js
+  html_helper.js
+
+index.js			// runs the application
+```
+
+---
 
 ## Installation
 
