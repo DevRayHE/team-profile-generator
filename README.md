@@ -36,6 +36,7 @@
 
 ## Features 
 * Node.js command-line application takes in real world data
+* Utilized Inquirer and Jest testing framework
 * HTML file dynamically generated with input data
 * Generated webpage with functional navigations
 * Comprehensive unit test included
